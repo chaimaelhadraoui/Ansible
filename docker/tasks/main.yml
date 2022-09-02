@@ -5,7 +5,7 @@
     image: "{{ image_name }}"
     state: started
     ports:
-      - "{{ item.port }}:80"
+      - "{{ item.port }}:83"
     security_opts:
           - "label:disable"
     privileged: true

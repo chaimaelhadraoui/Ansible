@@ -1,2 +1,13 @@
 ---
 # defaults file for role-1
+image_name: irixjp/katacoda:centos8-node
+containers: 
+  - name: container1
+    port: 8085
+  - name: container2
+    port: 8086
+
+ 
+      
+      
+      

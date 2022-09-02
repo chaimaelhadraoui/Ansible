@@ -1,6 +1,6 @@
 --- 
 - name: Container start
-  community.docker.docker_container:
+  docker_container:
     name: "{{ item.name }}"
     image: "{{ image_name }}"
     state: started
@@ -9,5 +9,6 @@
     security_opts:
           - "label:disable"
     privileged: true
+    command: /sbin/init
   loop: "{{ containers }}"
   register: containers 

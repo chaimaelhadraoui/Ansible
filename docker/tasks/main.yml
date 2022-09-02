@@ -12,3 +12,6 @@
     command: /sbin/init
   loop: "{{ containers }}"
   register: containers 
+
+
+

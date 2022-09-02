@@ -1,7 +1,14 @@
 --- 
-- hosts: localhost
+- name: docker
+  hosts: localhost
   become: no
   gather_facts: yes
   roles:
     - docker
+- name: add Users
+  hosts: containers
+  gather_facts: no
+  become: no
+  roles: 
+    - users
   

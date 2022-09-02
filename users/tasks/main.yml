@@ -1,0 +1,8 @@
+---
+# tasks file for users
+
+- name: add chaimae user to each container
+  user:
+    name: chaimae
+    state: present
+  

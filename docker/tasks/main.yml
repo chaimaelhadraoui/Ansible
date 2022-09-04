@@ -10,8 +10,43 @@
           - "label:disable"
     privileged: true
     command: /sbin/init
-  loop: "{{ containers }}"
-  register: containers 
+  loop: "{{ list_containers }}"
+  register: containers
+  
+
+- debug: "{{containers}}"
+
+- name: Create a default inventory
+  copy:
+    content: |
+      [web]
+      {% for i in containers.results %}
+      {{ i.invocation.module_args.name }} ansible_host={{ i.container.NetworkSettings.IPAddress }}
+      {% endfor %}
+      [all:vars]
+      ansible_user=chaimae
+      ansible_ssh_private_key_file={{ keypair_path }}
+    dest: /root/Ansible/inventory.ini
+
+- name: Create ansible.cfg
+  copy:
+    content: |
+      [defaults]
+      inventory          = /root/Ansible/inventory.ini
+      host_key_checking  = False
+      force_color        = True
+      forks              = 1
+     
+      [ssh_connection]
+      ssh_args = -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+    dest: /root/Ansible
+
+- name: create ssh keypair
+  community.crypto.openssh_keypair:
+    path: /root/automation-keypair.pem
+  register: keypair
+
+- debug: var=keypair
 
 
 

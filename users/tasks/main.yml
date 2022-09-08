@@ -5,4 +5,20 @@
   user:
     name: chaimae
     state: present
-  
+- name: create ssh directory to cento
+  file:
+    path: /home/centos/.ssh
+    state: directory
+    mode: '0755'
+    owner: centos
+    group: centos
+
+- name: copy pub key to nodes
+  copy:
+    src: "{{ keypair_path }}.pub"
+    dest: /home/centos/.ssh/authorized_keys
+    mode: '0600'
+    owner: centos
+    group: centos
+    tags:
+      - travis

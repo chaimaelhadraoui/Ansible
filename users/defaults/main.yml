@@ -1,10 +1,3 @@
 ---
-image_name: irixjp/katacoda:centos8-node
-list_containers: 
-  - name: container1
-    port: 8085
-  - name: container2
-    port: 8086
-keypair_path: /root/automation-keypair.pem
-inventory_path: /root/inventory_file
-ansible_cfg_path: /root/.ansible.cfg
+
+keypair_path: ./privateKey.pem

@@ -1,24 +1,35 @@
 ---
 # tasks file for users
 
-- name: add chaimae user to each container
+- name: add chaimae user to each node
   user:
     name: chaimae
     state: present
-- name: create ssh directory to cento
+
+- name: start sshd
+  service:
+    name: sshd
+    state: started
+  tags:
+    - travis
+
+- name: create ssh directory to chaimae
   file:
-    path: /home/centos/.ssh
+    path: ./.ssh 
     state: directory
     mode: '0755'
-    owner: centos
-    group: centos
+    owner: chaimae
+    group: chaimae
 
 - name: copy pub key to nodes
   copy:
     src: "{{ keypair_path }}.pub"
-    dest: /home/centos/.ssh/authorized_keys
+    dest: ./.ssh/authorized_keys
     mode: '0600'
-    owner: centos
-    group: centos
-    tags:
-      - travis
+    owner: chaimae
+    group: chaimae
+  tags:
+    - travis
+
+- name: update repo url
+  shell: "sed -i 's|#baseurl=http://mirror.chaimae.org|baseurl=http://vault.chaimae.org|g' /etc/yum.repos.d/chaimae-Linux-*;"

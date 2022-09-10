@@ -1,15 +1,15 @@
 --- 
 - name: docker
   hosts: localhost
-  become: no
-  gather_facts: yes
+  become: false
+  gather_facts: true
   roles:
     - docker
    
 - name: add Users
-  hosts: containers
-  gather_facts: no
-  become: no
+  hosts: dockers
+  gather_facts: false
+  become: true
   roles: 
     - users
   

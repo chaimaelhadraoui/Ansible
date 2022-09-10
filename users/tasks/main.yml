@@ -15,7 +15,7 @@
 
 - name: create ssh directory to chaimae
   file:
-    path: ./.ssh 
+    path: /home/chaimae/.ssh
     state: directory
     mode: '0755'
     owner: chaimae
@@ -24,12 +24,9 @@
 - name: copy pub key to nodes
   copy:
     src: "{{ keypair_path }}.pub"
-    dest: ./.ssh/authorized_keys
+    dest: /home/chaimae/.ssh/authorized_keys
     mode: '0600'
     owner: chaimae
     group: chaimae
   tags:
     - travis
-
-- name: update repo url
-  shell: "sed -i 's|#baseurl=http://mirror.chaimae.org|baseurl=http://vault.chaimae.org|g' /etc/yum.repos.d/chaimae-Linux-*;"

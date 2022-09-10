@@ -38,7 +38,7 @@
   copy:
     content: |
       [defaults]
-      inventory          = /root/Ansible/inventory.ini
+      inventory          = "{{inventory_path}}"
       host_key_checking  = False
       force_color        = True
       forks              = 1
@@ -49,7 +49,7 @@
 
 - name: create ssh keypair
   community.crypto.openssh_keypair:
-    path: " {{ keypair_path }}.pub" 
+    path: "{{ keypair_path }}" 
   register: keypair
 
 - debug: var=keypair

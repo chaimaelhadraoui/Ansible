@@ -12,4 +12,11 @@
   become: true
   roles: 
     - users
+
+- name: configure with httpd 
+  hosts: all
+  gather_facts: false
+  become: true
+  roles: 
+    - httpdRole
   

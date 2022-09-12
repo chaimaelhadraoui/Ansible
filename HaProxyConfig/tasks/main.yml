@@ -1,0 +1,23 @@
+---
+# tasks file for nginxConfig
+
+- name: "Installing haproxy"
+  package:
+    name: "haproxy"
+    state: present
+
+
+
+
+
+- name: "starting haproxy services"
+  service:
+    name: "haproxy"
+    state: started
+    enabled: yes
+
+- name: copy conf file
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: restart lb

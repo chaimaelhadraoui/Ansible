@@ -33,19 +33,3 @@
 
 - name: update repo url
   shell: "sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*;"
-
-- name: Install the latest version of Apache
-  ansible.builtin.yum:
-    name: httpd
-    state: latest
-
-- name: start & enabled httpd
-  service:
-    name: httpd
-    state: started
-    enabled: yes
-
-- name: copy index.html
-  copy:
-    src: templates/index.html
-    dest: /var/www/html/

@@ -13,10 +13,21 @@
   roles: 
     - users
 
-- name: configure with httpd 
-  hosts: all
+- name: "install httpd on container 1"
+  hosts: container1
+  become: false
+  roles:
+    - httpdRole
+  
+
+- name: "install nginx on container 2"
+  hosts: container2
   gather_facts: false
   become: true
-  roles: 
-    - httpdRole
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+  roles:
+    - nginxConfig
+ 
+  
   

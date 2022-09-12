@@ -1,3 +1,15 @@
 ---
 # tasks file for httpdRole
 
+
+- name: Install the latest version of Apache
+  ansible.builtin.yum:
+    name: httpd
+    state: latest
+
+- name: start & enabled httpd
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
